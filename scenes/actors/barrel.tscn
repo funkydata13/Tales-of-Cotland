@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1leymjmai2o3"]
+
+[ext_resource type="Material" uid="uid://bu4gnag3fkcxh" path="res://materials/lit_pixelart.tres" id="1_qal44"]
+[ext_resource type="Texture2D" uid="uid://dbpnkwpiv6phf" path="res://assets/spritesheets/barrel_01.png" id="2_hy6wm"]
+[ext_resource type="AnimationLibrary" uid="uid://wjfghh1fu0yy" path="res://assets/animations/sprite_animation.res" id="3_0aue1"]
+[ext_resource type="Script" path="res://scripts/game/inventory.gd" id="4_h6c1d"]
+[ext_resource type="Script" path="res://scripts/attributes/attribute.gd" id="5_04vbq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10qyy"]
+size = Vector2(14, 16)
+
+[node name="Barrel" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 71
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(16, -8)
+shape = SubResource("RectangleShape2D_10qyy")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = ExtResource("1_qal44")
+texture = ExtResource("2_hy6wm")
+centered = false
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 16)
+
+[node name="Animation Player" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+"sprite_animation": ExtResource("3_0aue1")
+}
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("4_h6c1d")
+
+[node name="Attributes" type="Node" parent="."]
+
+[node name="Vitality" type="Node" parent="Attributes"]
+script = ExtResource("5_04vbq")
+maximum_value = 3.0
+value = 3.0

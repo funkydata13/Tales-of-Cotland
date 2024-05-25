@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://duvemtw3lxmro"]
+
+[ext_resource type="Material" uid="uid://bu4gnag3fkcxh" path="res://materials/lit_pixelart.tres" id="1_2dvmd"]
+[ext_resource type="Script" path="res://scripts/actors/items/item_coin.gd" id="2_vh65c"]
+[ext_resource type="Texture2D" uid="uid://c5wrts7u7akdo" path="res://assets/sprites/coin.png" id="3_2on7l"]
+[ext_resource type="AnimationLibrary" uid="uid://dp215ysknk47m" path="res://assets/animations/item_animations.res" id="4_pyucp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5lpp"]
+size = Vector2(6, 9)
+
+[node name="Coin" type="RigidBody2D"]
+material = ExtResource("1_2dvmd")
+collision_layer = 64
+lock_rotation = true
+script = ExtResource("2_vh65c")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_b5lpp")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -4)
+texture = ExtResource("3_2on7l")
+
+[node name="Animation Player" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+"item_animations": ExtResource("4_pyucp")
+}

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmcv4tnb21pod"]
+
+[ext_resource type="Material" uid="uid://bu4gnag3fkcxh" path="res://materials/lit_pixelart.tres" id="1_s0nkp"]
+[ext_resource type="Script" path="res://scripts/actors/activables/rune.gd" id="1_ygxwe"]
+[ext_resource type="SpriteFrames" uid="uid://bb752w2uiqoij" path="res://assets/spritesheets/rune_01_frames.tres" id="2_rlum1"]
+[ext_resource type="Script" path="res://scripts/nodes/sprite.gd" id="4_8sjkx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt6it"]
+size = Vector2(16, 16)
+
+[node name="Rune" type="Area2D"]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_ygxwe")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_kt6it")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.3, 0.3, 0.3, 1)
+material = ExtResource("1_s0nkp")
+sprite_frames = ExtResource("2_rlum1")
+animation = &"runes"
+centered = false
+offset = Vector2(0, -16)
+script = ExtResource("4_8sjkx")

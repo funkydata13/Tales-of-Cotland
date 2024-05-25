@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://c40kstk2qgjs7"]
+
+[ext_resource type="FontFile" uid="uid://ba0mc8qilxt7t" path="res://assets/ui/fonts/Round9x13.ttf" id="1_8jogd"]
+[ext_resource type="Script" path="res://scripts/ui/main_menu_ui.gd" id="1_chmma"]
+
+[node name="Main Menu UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_chmma")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -55.0
+offset_right = 375.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_8jogd")
+theme_override_font_sizes/font_size = 80
+text = "TALES OF COTLAND"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/font = ExtResource("1_8jogd")
+text = "PREBUILD  0"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Test Level" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_8jogd")
+text = "NIVEAU DE TEST"
+
+[node name="Trash Level" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_8jogd")
+text = "NIVEAU POUBELLE"
+
+[connection signal="pressed" from="VBoxContainer/Test Level" to="." method="on_level_test_pressed"]
+[connection signal="pressed" from="VBoxContainer/Trash Level" to="." method="on_level_trash_pressed"]

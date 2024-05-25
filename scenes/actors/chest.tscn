@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce1pujxl4vo7u"]
+
+[ext_resource type="Script" path="res://scripts/actors/activables/chest.gd" id="1_qr58m"]
+[ext_resource type="SpriteFrames" uid="uid://c7k0syrlbfqls" path="res://assets/spritesheets/chest_01_frames.tres" id="1_uotyk"]
+[ext_resource type="Script" path="res://scripts/game/inventory.gd" id="2_d65fo"]
+[ext_resource type="Script" path="res://scripts/nodes/stopwatch.gd" id="3_1j1xf"]
+[ext_resource type="Script" path="res://scripts/nodes/sprite.gd" id="3_bn7cn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jukbu"]
+
+[node name="Chest" type="Area2D"]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_qr58m")
+variant = null
+keys_needed_to_open = null
+activation_childs = null
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(18, -10)
+shape = SubResource("RectangleShape2D_jukbu")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_uotyk")
+animation = &"0_0"
+centered = false
+offset = Vector2(0, -32)
+script = ExtResource("3_bn7cn")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("2_d65fo")
+
+[node name="Stopwatch" type="Node" parent="."]
+script = ExtResource("3_1j1xf")
+fixed_duration = true
+duration = 2.0

@@ -1,0 +1,173 @@
+[gd_scene load_steps=11 format=3 uid="uid://bleupmjuuy6u7"]
+
+[ext_resource type="Texture2D" uid="uid://bsuana6fvlv68" path="res://assets/ui/progressbar_empty.png" id="1_3hpok"]
+[ext_resource type="Script" path="res://scripts/ui/game_hud.gd" id="1_t1ypv"]
+[ext_resource type="Texture2D" uid="uid://c8x1xifu8ejay" path="res://assets/ui/progressbar_border.png" id="2_2xhvg"]
+[ext_resource type="Texture2D" uid="uid://cll3i6tmgasti" path="res://assets/ui/progressbar_gray_c.png" id="3_7jsu4"]
+[ext_resource type="Texture2D" uid="uid://d0x6haqsjcfw2" path="res://assets/sprites/key.png" id="4_ou078"]
+[ext_resource type="FontFile" uid="uid://ba0mc8qilxt7t" path="res://assets/ui/fonts/Round9x13.ttf" id="5_1dhlt"]
+[ext_resource type="Texture2D" uid="uid://c5wrts7u7akdo" path="res://assets/sprites/coin.png" id="6_snkcv"]
+[ext_resource type="Texture2D" uid="uid://c7nxmqiaurtka" path="res://assets/sprites/potion_vitality_full.png" id="7_j6wcs"]
+[ext_resource type="Texture2D" uid="uid://cuq4e7ctu1iqm" path="res://assets/sprites/potion_stamina_full.png" id="8_8jtoy"]
+[ext_resource type="Texture2D" uid="uid://b42e2fr1412am" path="res://assets/sprites/potion_magic_full.png" id="9_ecxtc"]
+
+[node name="Game HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t1ypv")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 20
+
+[node name="Status" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Vitality" type="TextureProgressBar" parent="Margin/Status"]
+layout_mode = 2
+value = 50.0
+texture_under = ExtResource("1_3hpok")
+texture_over = ExtResource("2_2xhvg")
+texture_progress = ExtResource("3_7jsu4")
+tint_progress = Color(1, 0.2, 0.2, 1)
+
+[node name="Stamina" type="TextureProgressBar" parent="Margin/Status"]
+layout_mode = 2
+value = 50.0
+texture_under = ExtResource("1_3hpok")
+texture_over = ExtResource("2_2xhvg")
+texture_progress = ExtResource("3_7jsu4")
+tint_progress = Color(0.454902, 1, 0.2, 1)
+
+[node name="Magic" type="TextureProgressBar" parent="Margin/Status"]
+layout_mode = 2
+value = 50.0
+texture_under = ExtResource("1_3hpok")
+texture_over = ExtResource("2_2xhvg")
+texture_progress = ExtResource("3_7jsu4")
+tint_progress = Color(0.2, 0.760784, 1, 1)
+
+[node name="Items" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Key" type="HBoxContainer" parent="Margin/Items"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Margin/Items/Key"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_ou078")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Margin/Items/Key"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "x0"
+
+[node name="Coin" type="HBoxContainer" parent="Margin/Items"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Margin/Items/Coin"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("6_snkcv")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Margin/Items/Coin"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "x0"
+
+[node name="Potions" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Vitality" type="HBoxContainer" parent="Margin/Potions"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Margin/Potions/Vitality"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("7_j6wcs")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Margin/Potions/Vitality"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "x0"
+
+[node name="Stamina" type="HBoxContainer" parent="Margin/Potions"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Margin/Potions/Stamina"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("8_8jtoy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Margin/Potions/Stamina"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "x0"
+
+[node name="Magic" type="HBoxContainer" parent="Margin/Potions"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Margin/Potions/Magic"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("9_ecxtc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Margin/Potions/Magic"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "x0"
+
+[node name="Version" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="Margin/Version"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "PREBUILD 0"
+
+[node name="Debug" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Respawn" type="Button" parent="Margin/Debug"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "RESPAWN PLAYER"
+
+[node name="Main Menu" type="Button" parent="Margin/Debug"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_1dhlt")
+text = "TO MAIN MENU"

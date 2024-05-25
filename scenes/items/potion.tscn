@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0ooi085qek24"]
+
+[ext_resource type="Material" uid="uid://bu4gnag3fkcxh" path="res://materials/lit_pixelart.tres" id="1_dire0"]
+[ext_resource type="Script" path="res://scripts/actors/items/item_potion.gd" id="2_ajb2q"]
+[ext_resource type="Texture2D" uid="uid://c7nxmqiaurtka" path="res://assets/sprites/potion_vitality_full.png" id="3_82e6h"]
+[ext_resource type="AnimationLibrary" uid="uid://dp215ysknk47m" path="res://assets/animations/item_animations.res" id="4_71gtg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vy5q5"]
+size = Vector2(12, 15)
+
+[node name="Potion" type="RigidBody2D"]
+material = ExtResource("1_dire0")
+collision_layer = 64
+lock_rotation = true
+script = ExtResource("2_ajb2q")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_vy5q5")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -8)
+texture = ExtResource("3_82e6h")
+
+[node name="Animation Player" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+"item_animations": ExtResource("4_71gtg")
+}

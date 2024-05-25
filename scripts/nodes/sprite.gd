@@ -1,0 +1,1 @@
+class_name C_Sprite extends AnimatedSprite2D

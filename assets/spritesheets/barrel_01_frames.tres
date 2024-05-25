@@ -1,0 +1,63 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://bovw0qqy4xuqv"]
+
+[ext_resource type="Texture2D" uid="uid://dbpnkwpiv6phf" path="res://assets/spritesheets/barrel_01.png" id="1_qlwkc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goqpk"]
+atlas = ExtResource("1_qlwkc")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md7fl"]
+atlas = ExtResource("1_qlwkc")
+region = Rect2(36, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugqkw"]
+atlas = ExtResource("1_qlwkc")
+region = Rect2(0, 20, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34w41"]
+atlas = ExtResource("1_qlwkc")
+region = Rect2(36, 20, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b25pi"]
+atlas = ExtResource("1_qlwkc")
+region = Rect2(0, 40, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pho6"]
+atlas = ExtResource("1_qlwkc")
+region = Rect2(36, 40, 32, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_goqpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md7fl")
+}],
+"loop": false,
+"name": &"1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugqkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34w41")
+}],
+"loop": false,
+"name": &"2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b25pi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pho6")
+}],
+"loop": false,
+"name": &"3",
+"speed": 10.0
+}]

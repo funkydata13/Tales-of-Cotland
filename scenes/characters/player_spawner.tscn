@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://7r1ndqoml3jh"]
+
+[ext_resource type="Script" path="res://scripts/characters/player_spawner.gd" id="1_l3vjv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m82tq"]
+radius = 8.0
+
+[node name="Player Spawner" type="Area2D"]
+collision_layer = 512
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_l3vjv")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_m82tq")

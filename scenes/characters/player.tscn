@@ -1,0 +1,261 @@
+[gd_scene load_steps=34 format=3 uid="uid://bstbetj4urqcf"]
+
+[ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_q4kch"]
+[ext_resource type="Script" path="res://scripts/kinematics/kinematic_node.gd" id="2_c4lp6"]
+[ext_resource type="SpriteFrames" uid="uid://dempeyykpydjp" path="res://assets/characters/player_frames.tres" id="2_jjiar"]
+[ext_resource type="Material" uid="uid://bu4gnag3fkcxh" path="res://materials/lit_pixelart.tres" id="2_thj1v"]
+[ext_resource type="Script" path="res://scripts/kinematics/kinematic_air.gd" id="3_rdhgi"]
+[ext_resource type="Script" path="res://scripts/nodes/sprite.gd" id="3_svujk"]
+[ext_resource type="Script" path="res://scripts/game/inventory.gd" id="4_2lku7"]
+[ext_resource type="Script" path="res://scripts/attributes/attribute.gd" id="4_pvt4l"]
+[ext_resource type="Script" path="res://scripts/kinematics/kinematic_ground.gd" id="4_xe0l4"]
+[ext_resource type="AnimationLibrary" uid="uid://wjfghh1fu0yy" path="res://assets/animations/sprite_animation.res" id="5_i0ifq"]
+[ext_resource type="Script" path="res://scripts/kinematics/kinematic_move.gd" id="5_q8n5h"]
+[ext_resource type="Script" path="res://scripts/machine/machine_state.gd" id="6_75t6p"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_flying.gd" id="7_vehy3"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_idle.gd" id="8_812nv"]
+[ext_resource type="Script" path="res://scripts/kinematics/kinematics_jump.gd" id="8_pfgbk"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_running.gd" id="8_qa5p0"]
+[ext_resource type="Script" path="res://scripts/machine/states/State_jumping.gd" id="13_7rotf"]
+[ext_resource type="Script" path="res://scripts/kinematics/kinematic_slide.gd" id="13_pebyb"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_flying_jump.gd" id="14_aiprk"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_walking.gd" id="15_l5n8d"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_attack.gd" id="18_jobif"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_hitted.gd" id="21_w6o1k"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_death.gd" id="22_q5vmm"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_landing.gd" id="23_fxmwt"]
+[ext_resource type="Script" path="res://scripts/machine/machine_stopwatch.gd" id="24_1xgpp"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_sliding_start.gd" id="25_mw70r"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_sliding.gd" id="26_78wg0"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_sliding_end.gd" id="27_a3umu"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_wall_contact.gd" id="29_yk04r"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_wall_sliding.gd" id="30_dw26u"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_wall_jumping.gd" id="31_dbiya"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_naeui"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ef4gi"]
+radius = 17.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_q4kch")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_naeui")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_thj1v")
+sprite_frames = ExtResource("2_jjiar")
+animation = &"Attacking 1"
+offset = Vector2(1, -13)
+script = ExtResource("3_svujk")
+
+[node name="Animation Player" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+"sprite_animation": ExtResource("5_i0ifq")
+}
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("4_2lku7")
+
+[node name="Attributes" type="Node" parent="."]
+
+[node name="Vitality" type="Node" parent="Attributes"]
+script = ExtResource("4_pvt4l")
+maximum_value = 20.0
+regen_when_depleted = false
+
+[node name="Stamina" type="Node" parent="Attributes"]
+script = ExtResource("4_pvt4l")
+type = 1
+maximum_value = 20.0
+regen_rate = 0.5
+
+[node name="Magica" type="Node" parent="Attributes"]
+script = ExtResource("4_pvt4l")
+type = 2
+maximum_value = 5.0
+value = 5.0
+
+[node name="Kinematics" type="Node" parent="."]
+script = ExtResource("2_c4lp6")
+
+[node name="Air" type="Node" parent="Kinematics"]
+script = ExtResource("3_rdhgi")
+type = 2
+
+[node name="Move" type="Node" parent="Kinematics/Air"]
+script = ExtResource("5_q8n5h")
+friction = 5.0
+type = 9
+
+[node name="Jump" type="Node" parent="Kinematics/Air" node_paths=PackedStringArray("air_node")]
+script = ExtResource("8_pfgbk")
+air_node = NodePath("..")
+local_gravity = true
+height = 12.0
+time_to_peak = 0.15
+time_to_descent = 0.15
+type = 4
+
+[node name="Ground" type="Node" parent="Kinematics"]
+script = ExtResource("4_xe0l4")
+type = 1
+
+[node name="Run" type="Node" parent="Kinematics/Ground"]
+script = ExtResource("5_q8n5h")
+type = 7
+
+[node name="Walk" type="Node" parent="Kinematics/Ground"]
+script = ExtResource("5_q8n5h")
+speed = 30.0
+type = 6
+
+[node name="Jump" type="Node" parent="Kinematics/Ground" node_paths=PackedStringArray("air_node")]
+script = ExtResource("8_pfgbk")
+air_node = NodePath("../../Air")
+local_gravity = true
+type = 4
+
+[node name="Slide" type="Node" parent="Kinematics/Ground"]
+script = ExtResource("13_pebyb")
+type = 5
+
+[node name="Machine State" type="Node" parent="." node_paths=PackedStringArray("sprite", "kinematics", "obstacle_detector", "ledge_detector")]
+script = ExtResource("6_75t6p")
+read_inputs = true
+sprite = NodePath("../Sprite")
+kinematics = NodePath("../Kinematics")
+obstacle_detector = NodePath("../Obstacles Detector")
+ledge_detector = NodePath("../Ledge Detector")
+
+[node name="Idle" type="Node" parent="Machine State"]
+script = ExtResource("8_812nv")
+
+[node name="Flying" type="Node" parent="Machine State"]
+script = ExtResource("7_vehy3")
+
+[node name="Running" type="Node" parent="Machine State"]
+script = ExtResource("8_qa5p0")
+
+[node name="Walking" type="Node" parent="Machine State"]
+script = ExtResource("15_l5n8d")
+
+[node name="Jumping" type="Node" parent="Machine State"]
+script = ExtResource("13_7rotf")
+
+[node name="Flying Jump" type="Node" parent="Machine State"]
+script = ExtResource("14_aiprk")
+
+[node name="Attacking 1" type="Node" parent="Machine State" node_paths=PackedStringArray("area")]
+script = ExtResource("18_jobif")
+area = NodePath("../../Attack 1")
+combo_link = true
+combo_frame_trigger = 3
+attribute_consumption = 2.0
+attribute_damage = 2.0
+
+[node name="Attacking 2" type="Node" parent="Machine State" node_paths=PackedStringArray("area")]
+script = ExtResource("18_jobif")
+area = NodePath("../../Attack 2")
+repel_force = 5.0
+index = 2
+combo_link = true
+combo_frame_trigger = 0
+attribute_damage = 2.0
+
+[node name="Attacking 3" type="Node" parent="Machine State" node_paths=PackedStringArray("area")]
+script = ExtResource("18_jobif")
+area = NodePath("../../Attack 3")
+repel_force = 100.0
+index = 3
+attribute_consumption = 2.0
+attribute_damage = 4.0
+
+[node name="Hitted" type="Node" parent="Machine State" node_paths=PackedStringArray("attribute")]
+script = ExtResource("21_w6o1k")
+attribute = NodePath("../../Attributes/Vitality")
+
+[node name="Death" type="Node" parent="Machine State" node_paths=PackedStringArray("attribute")]
+script = ExtResource("22_q5vmm")
+attribute = NodePath("../../Attributes/Vitality")
+
+[node name="Landing" type="Node" parent="Machine State"]
+script = ExtResource("23_fxmwt")
+
+[node name="Stopwatch" type="Node" parent="Machine State/Landing"]
+script = ExtResource("24_1xgpp")
+next_state = "Idle"
+fixed_duration = true
+duration = 0.5
+
+[node name="Sliding Start" type="Node" parent="Machine State"]
+script = ExtResource("25_mw70r")
+
+[node name="Sliding" type="Node" parent="Machine State" node_paths=PackedStringArray("start_sliding_state")]
+script = ExtResource("26_78wg0")
+start_sliding_state = NodePath("../Sliding Start")
+
+[node name="Sliding End" type="Node" parent="Machine State" node_paths=PackedStringArray("start_sliding_state")]
+script = ExtResource("27_a3umu")
+start_sliding_state = NodePath("../Sliding Start")
+
+[node name="Wall Contact" type="Node" parent="Machine State"]
+script = ExtResource("29_yk04r")
+
+[node name="Wall Sliding" type="Node" parent="Machine State" node_paths=PackedStringArray("wall_contact_state")]
+script = ExtResource("30_dw26u")
+wall_contact_state = NodePath("../Wall Contact")
+
+[node name="Wall Jumping" type="Node" parent="Machine State"]
+script = ExtResource("31_dbiya")
+
+[node name="Attack 1" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 28
+monitorable = false
+
+[node name="Collider" type="CollisionPolygon2D" parent="Attack 1"]
+polygon = PackedVector2Array(-16, -21, 29, -5, 31, 0, 26, 4, 1, 4, -19, -8)
+
+[node name="Attack 2" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 28
+monitorable = false
+
+[node name="Collider" type="CollisionPolygon2D" parent="Attack 2"]
+polygon = PackedVector2Array(9, -9, 17, -6, 20, 1, 16, 6, 9, 8, -9, 8, -17, 5, -16, 0, -4, -6)
+
+[node name="Attack 3" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 28
+monitorable = false
+
+[node name="Collider" type="CollisionPolygon2D" parent="Attack 3"]
+polygon = PackedVector2Array(-14, -13, -12, -19, 0, -21, 11, -19, 22, -11, 27, 3, 24, 11, 13, 9)
+
+[node name="Loot Area" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 192
+monitorable = false
+
+[node name="Collider" type="CollisionShape2D" parent="Loot Area"]
+position = Vector2(5, 11)
+shape = SubResource("CircleShape2D_ef4gi")
+
+[node name="Obstacles Detector" type="RayCast2D" parent="."]
+position = Vector2(0, -8)
+rotation = -1.5708
+target_position = Vector2(-4.76837e-07, 15)
+collision_mask = 45
+
+[node name="Ledge Detector" type="RayCast2D" parent="."]
+position = Vector2(20, 0)
+target_position = Vector2(0, 30)

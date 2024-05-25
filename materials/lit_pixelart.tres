@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bu4gnag3fkcxh"]
+
+[ext_resource type="Shader" path="res://materials/lit_pixelart.gdshader" id="1_88x7b"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_88x7b")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_intensity = 0.0
+shader_parameter/opacity = 1.0
