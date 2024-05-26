@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cm82pwkpvepoh"]
+[gd_scene load_steps=22 format=3 uid="uid://cm82pwkpvepoh"]
 
 [ext_resource type="Script" path="res://scripts/game/level.gd" id="1_qjfgb"]
 [ext_resource type="PackedScene" uid="uid://7r1ndqoml3jh" path="res://scenes/characters/player_spawner.tscn" id="2_cpurj"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ce1pujxl4vo7u" path="res://scenes/actors/chest.tscn" id="9_ok75h"]
 [ext_resource type="PackedScene" uid="uid://ctlo0ciygd78t" path="res://scenes/actors/door.tscn" id="12_1786i"]
 [ext_resource type="PackedScene" uid="uid://bmcv4tnb21pod" path="res://scenes/actors/rune.tscn" id="12_lin6p"]
+[ext_resource type="PackedScene" uid="uid://duscebfqdvo5c" path="res://scenes/ui/potions_menu.tscn" id="13_j0o7a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eom0d"]
 resource_local_to_scene = true
@@ -178,3 +179,6 @@ activation_childs = [NodePath("../Door")]
 [node name="UI Canvas" type="CanvasLayer" parent="."]
 
 [node name="Game HUD" parent="UI Canvas" instance=ExtResource("4_4x8c5")]
+
+[node name="Potions Menu" parent="UI Canvas" instance=ExtResource("13_j0o7a")]
+visible = false

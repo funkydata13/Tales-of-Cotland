@@ -18,7 +18,7 @@ func can_enter() -> bool:
 
 func enter():
 	super()
-	set_sprite_animation(name)
+	set_sprite_animation()
 
 	sprite_x_offset_backup = machine.sprite.offset.x
 	machine.sprite.offset.x = sprite_x_offset

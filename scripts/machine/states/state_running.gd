@@ -17,7 +17,7 @@ func can_enter() -> bool:
 
 func enter():
 	super()
-	set_sprite_animation(name)
+	set_sprite_animation()
 
 func check_status(_delta:float):
 	if exit_by_stopwatch():

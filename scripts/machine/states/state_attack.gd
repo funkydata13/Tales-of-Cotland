@@ -18,7 +18,6 @@ enum E_ComboState {Pending, Failure, Success }
 @export var attribute_damage:float = 1
 
 var owner_node:Node2D
-var animation_name:String
 var consumed_attribute_instance:C_Attribute
 var combo_state:E_ComboState = E_ComboState.Pending
 var targets:Array = []
@@ -29,7 +28,7 @@ var ground_kinematic:C_KinematicGround
 func _ready():
 	super()
 	
-	animation_name = "Attacking " + str(index)
+	animation_name_override = "Attacking " + str(index)
 
 	if is_instance_valid(area):
 		area.area_entered.connect(on_area_enter)
@@ -72,7 +71,7 @@ func can_enter() -> bool:
 
 func enter():
 	super()
-	set_sprite_animation(animation_name)
+	set_sprite_animation()
 	combo_state = E_ComboState.Pending if machine.kinematics.is_grounded else E_ComboState.Failure
 
 func exit():

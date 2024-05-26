@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjlvryjmctej6"]
 
 [ext_resource type="Script" path="res://scripts/game/level.gd" id="1_2t4ls"]
-[ext_resource type="PackedScene" uid="uid://c40kstk2qgjs7" path="res://scenes/ui/main_menu_ui.tscn" id="2_xyk2x"]
+[ext_resource type="PackedScene" uid="uid://c40kstk2qgjs7" path="res://scenes/ui/main_menu.tscn" id="2_xyk2x"]
 
 [node name="Level Main Menu" type="Node2D"]
 script = ExtResource("1_2t4ls")

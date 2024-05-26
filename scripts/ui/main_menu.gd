@@ -1,4 +1,4 @@
-class_name C_MainMenuUI extends Control
+class_name C_UIMainMenu extends Control
 
 func on_level_test_pressed():
     if is_instance_valid(Game.level):

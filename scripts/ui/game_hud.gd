@@ -1,4 +1,4 @@
-class_name C_GameHUD extends Control
+class_name C_UIGameHUD extends Control
 
 var player:C_Player
 var bars:Dictionary
@@ -47,6 +47,15 @@ func check_player_instance():
 
 		update_attribute_bar(C_Attribute.E_Type.Magic)
 		(player.attributes[C_Attribute.E_Type.Magic] as C_Attribute).changed.connect(on_magic_changed)
+
+		(labels[C_Item.E_Type.Vitality] as Label).text = "x" + str(player.inventory.items[C_Item.E_Type.Vitality]);
+		(textures[C_Item.E_Type.Vitality] as TextureRect).texture = GameItems.get_texture(C_Item.E_Type.Vitality) if player.inventory.items[C_Item.E_Type.Vitality] > 0 else GameItems.empty_potion_texture
+
+		(labels[C_Item.E_Type.Stamina] as Label).text = "x" + str(player.inventory.items[C_Item.E_Type.Stamina]);
+		(textures[C_Item.E_Type.Stamina] as TextureRect).texture = GameItems.get_texture(C_Item.E_Type.Stamina) if player.inventory.items[C_Item.E_Type.Stamina] > 0 else GameItems.empty_potion_texture
+
+		(labels[C_Item.E_Type.Magic] as Label).text = "x" + str(player.inventory.items[C_Item.E_Type.Magic]);
+		(textures[C_Item.E_Type.Magic] as TextureRect).texture = GameItems.get_texture(C_Item.E_Type.Magic) if player.inventory.items[C_Item.E_Type.Magic] > 0 else GameItems.empty_potion_texture
 
 		player.inventory.changed.connect(on_inventory_changed)
 

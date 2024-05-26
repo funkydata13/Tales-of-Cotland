@@ -29,7 +29,7 @@ func _ready():
 
 func enter():
 	super()
-	set_sprite_animation(name)
+	set_sprite_animation()
 	if is_character:
 		owner_character.state = C_Character.E_State.Freezed
 

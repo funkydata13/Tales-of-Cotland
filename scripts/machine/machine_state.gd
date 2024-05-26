@@ -6,6 +6,7 @@ class_name C_MachineState extends Node
 @export var kinematics:C_KinematicNode
 @export var obstacle_detector:RayCast2D
 @export var ledge_detector:RayCast2D
+@export var ai:C_Ai
 
 var current_state:C_State
 var previous_state:C_State
@@ -43,6 +44,8 @@ func change_state(state_name:String, override:bool = false):
 		previous_state = current_state
 		current_state = new_state
 		current_state.enter()
+		if is_instance_valid(ai):
+			ai.machine_state_update(new_state)
 		return true
 	else:
 		return false

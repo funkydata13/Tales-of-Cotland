@@ -13,9 +13,9 @@ func _ready():
 
 func select_sprite_animation():
 	if animation_replacer == "":
-		set_sprite_animation("Flying Down" if machine.kinematics.is_falling else "Flying Up")
+		set_sprite_animation_name("Flying Down" if machine.kinematics.is_falling else "Flying Up")
 	else:
-		set_sprite_animation(animation_replacer)
+		set_sprite_animation_name(animation_replacer)
 
 func can_enter() -> bool:
 	return is_instance_valid(air_kinematic)

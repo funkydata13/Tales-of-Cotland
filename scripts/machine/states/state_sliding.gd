@@ -15,7 +15,7 @@ func _ready():
 
 func enter():
 	super()
-	set_sprite_animation(name)
+	set_sprite_animation()
 
 	var f:float
 

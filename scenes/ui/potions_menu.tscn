@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://duscebfqdvo5c"]
+
+[ext_resource type="Script" path="res://scripts/ui/potions_menu.gd" id="1_edqnd"]
+[ext_resource type="Texture2D" uid="uid://drpvnc5fojenv" path="res://assets/ui/panel_cell.png" id="1_h2g5y"]
+[ext_resource type="Texture2D" uid="uid://c36dqgkua6y65" path="res://assets/sprites/potion_empty.png" id="2_ijl4w"]
+[ext_resource type="FontFile" uid="uid://ba0mc8qilxt7t" path="res://assets/ui/fonts/Round9x13.ttf" id="3_p4wfb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v5p80"]
+texture = ExtResource("1_h2g5y")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="Potions Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_edqnd")
+
+[node name="Grid" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -20.0
+offset_right = 52.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="Vitality" type="PanelContainer" parent="Grid"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_v5p80")
+
+[node name="Container" type="VBoxContainer" parent="Grid/Vitality"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Grid/Vitality/Container"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_ijl4w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Grid/Vitality/Container"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_p4wfb")
+text = "x0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Stamina" type="PanelContainer" parent="Grid"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_v5p80")
+
+[node name="Container" type="VBoxContainer" parent="Grid/Stamina"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Grid/Stamina/Container"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_ijl4w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Grid/Stamina/Container"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_p4wfb")
+text = "x0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Magic" type="PanelContainer" parent="Grid"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_v5p80")
+
+[node name="Container" type="VBoxContainer" parent="Grid/Magic"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Grid/Magic/Container"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_ijl4w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Grid/Magic/Container"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_p4wfb")
+text = "x0"
+horizontal_alignment = 1
+vertical_alignment = 2

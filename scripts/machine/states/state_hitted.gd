@@ -33,7 +33,7 @@ func _ready():
 
 func enter():
 	super()
-	set_sprite_animation(name)
+	set_sprite_animation()
 	if is_character:
 		owner_previous_state = owner_character.state
 		owner_character.state = C_Character.E_State.Stunned
@@ -47,7 +47,7 @@ func on_attribute_changed(changed_amout:float, changed_value:float, changed_by:N
 	if changed_amout < 0 and changed_value > 0:
 		hit_from = changed_by
 		hit_force = force_applied
-		machine.change_state("Hitted", true)
+		machine.change_state(name, true)
 
 func check_status(_delta:float):
 	if exit_by_stopwatch():

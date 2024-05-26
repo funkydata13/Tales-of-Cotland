@@ -7,6 +7,7 @@ var trigger:bool
 var is_animation_looping:bool
 var is_animation_playing_backwards:bool
 var animation_frames_count:int
+var animation_name_override:String = ""
 
 func _ready():
     machine = get_parent() as C_MachineState
@@ -19,8 +20,14 @@ func _ready():
     set_process(false)
     set_physics_process(false)
 
-func set_sprite_animation(animation_name:String, play_backwards:bool = false):
-    if machine.sprite.animation != name:
+func set_sprite_animation(play_backwards:bool = false):
+    if animation_name_override == "":
+        set_sprite_animation_name(name, play_backwards)
+    else:
+        set_sprite_animation_name(animation_name_override, play_backwards)
+
+func set_sprite_animation_name(animation_name:String, play_backwards:bool = false):
+    if machine.sprite.animation != animation_name:
         if play_backwards:
             machine.sprite.play_backwards(animation_name)
         else:

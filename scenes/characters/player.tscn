@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bstbetj4urqcf"]
+[gd_scene load_steps=35 format=3 uid="uid://bstbetj4urqcf"]
 
 [ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_q4kch"]
 [ext_resource type="Script" path="res://scripts/kinematics/kinematic_node.gd" id="2_c4lp6"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/kinematics/kinematic_move.gd" id="5_q8n5h"]
 [ext_resource type="Script" path="res://scripts/machine/machine_state.gd" id="6_75t6p"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_flying.gd" id="7_vehy3"]
+[ext_resource type="Script" path="res://scripts/attributes/attribute_animation_flash.gd" id="8_65osd"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_idle.gd" id="8_812nv"]
 [ext_resource type="Script" path="res://scripts/kinematics/kinematics_jump.gd" id="8_pfgbk"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_running.gd" id="8_qa5p0"]
@@ -49,7 +50,7 @@ shape = SubResource("CapsuleShape2D_naeui")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_thj1v")
 sprite_frames = ExtResource("2_jjiar")
-animation = &"Attacking 1"
+animation = &"Shielding End"
 offset = Vector2(1, -13)
 script = ExtResource("3_svujk")
 
@@ -66,7 +67,15 @@ script = ExtResource("4_2lku7")
 [node name="Vitality" type="Node" parent="Attributes"]
 script = ExtResource("4_pvt4l")
 maximum_value = 20.0
+value = 20.0
 regen_when_depleted = false
+
+[node name="Effect Damage" type="Node" parent="Attributes/Vitality" node_paths=PackedStringArray("canvas", "player")]
+script = ExtResource("8_65osd")
+canvas = NodePath("../../../Sprite")
+color = Color(1, 1, 0.627451, 1)
+player = NodePath("../../../Sprite/Animation Player")
+play_speed = 5
 
 [node name="Stamina" type="Node" parent="Attributes"]
 script = ExtResource("4_pvt4l")
@@ -179,6 +188,12 @@ attribute_damage = 4.0
 script = ExtResource("21_w6o1k")
 attribute = NodePath("../../Attributes/Vitality")
 
+[node name="Stopwatch" type="Node" parent="Machine State/Hitted"]
+script = ExtResource("24_1xgpp")
+next_state = "Idle"
+fixed_duration = true
+duration = 0.5
+
 [node name="Death" type="Node" parent="Machine State" node_paths=PackedStringArray("attribute")]
 script = ExtResource("22_q5vmm")
 attribute = NodePath("../../Attributes/Vitality")
@@ -212,6 +227,8 @@ wall_contact_state = NodePath("../Wall Contact")
 
 [node name="Wall Jumping" type="Node" parent="Machine State"]
 script = ExtResource("31_dbiya")
+
+[node name="Shielding" type="Node" parent="Machine State"]
 
 [node name="Attack 1" type="Area2D" parent="."]
 visible = false

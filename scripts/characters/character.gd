@@ -37,6 +37,14 @@ func has_attribute(type:C_Attribute.E_Type) -> bool:
 func flip():
     is_facing_right = not is_facing_right
 
+func turn_to(pos:Vector2, backwards:bool = false):
+    if not backwards:
+        if (global_position.x > pos.x and is_facing_right) or (global_position.x < pos.x and not is_facing_right):
+            flip()
+    else:
+        if (global_position.x > pos.x and not is_facing_right) or (global_position.x < pos.x and is_facing_right):
+            flip()
+
 func take_damage(type:C_Attribute.E_Type, amount:float, from:Node2D, repel_force:float):
     (attributes[type] as C_Attribute).modify(-amount, from, repel_force)
 

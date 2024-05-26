@@ -302,10 +302,6 @@ region = Rect2(336, 168, 56, 56)
 atlas = ExtResource("1_cytxp")
 region = Rect2(392, 168, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p36wb"]
-atlas = ExtResource("1_cytxp")
-region = Rect2(0, 728, 56, 56)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fqr45"]
 atlas = ExtResource("1_cytxp")
 region = Rect2(56, 728, 56, 56)
@@ -313,6 +309,10 @@ region = Rect2(56, 728, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_82oi6"]
 atlas = ExtResource("1_cytxp")
 region = Rect2(112, 728, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p36wb"]
+atlas = ExtResource("1_cytxp")
+region = Rect2(0, 728, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uqx48"]
 atlas = ExtResource("1_cytxp")
@@ -739,9 +739,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p36wb")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_fqr45")
 }, {
 "duration": 1.0,
@@ -749,6 +746,22 @@ animations = [{
 }],
 "loop": false,
 "name": &"Shielding",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p36wb")
+}],
+"loop": false,
+"name": &"Shielding End",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p36wb")
+}],
+"loop": false,
+"name": &"Shielding Start",
 "speed": 10.0
 }, {
 "frames": [{

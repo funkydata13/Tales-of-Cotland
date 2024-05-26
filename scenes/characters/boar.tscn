@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cet20jxi45ng1"]
+[gd_scene load_steps=28 format=3 uid="uid://cet20jxi45ng1"]
 
 [ext_resource type="Script" path="res://scripts/characters/boar.gd" id="1_pjy7m"]
 [ext_resource type="Material" uid="uid://bu4gnag3fkcxh" path="res://materials/lit_pixelart.tres" id="1_pn4g7"]
@@ -13,15 +13,19 @@
 [ext_resource type="Script" path="res://scripts/kinematics/kinematic_ground.gd" id="9_y1nck"]
 [ext_resource type="Script" path="res://scripts/kinematics/kinematic_move.gd" id="10_gqa2w"]
 [ext_resource type="Script" path="res://scripts/machine/machine_state.gd" id="11_m20jc"]
-[ext_resource type="Script" path="res://scripts/machine/states/state_idle.gd" id="12_u4cmj"]
 [ext_resource type="Script" path="res://scripts/machine/machine_stopwatch.gd" id="13_tc2dv"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_flying.gd" id="14_gnsps"]
+[ext_resource type="Script" path="res://scripts/ai/ai_boar_state_idle.gd" id="14_nokp0"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_walking.gd" id="15_kj16u"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_running.gd" id="16_8dhwh"]
-[ext_resource type="Script" path="res://scripts/machine/states/state_hitted.gd" id="19_2ukwx"]
+[ext_resource type="Script" path="res://scripts/ai/ai_boar_state_hitted.gd" id="19_ojt15"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_death.gd" id="20_j0f1s"]
 [ext_resource type="Script" path="res://scripts/machine/states/state_landing.gd" id="21_x0rnk"]
+[ext_resource type="Script" path="res://scripts/ai/ai_boar_state_searching.gd" id="22_ckp72"]
 [ext_resource type="Script" path="res://scripts/ai/ai_boar.gd" id="22_tswwm"]
+[ext_resource type="Script" path="res://scripts/ai/ai_boar_state_running.gd" id="23_actu1"]
+[ext_resource type="Script" path="res://scripts/ai/ai_boar_state_resting.gd" id="24_g5xso"]
+[ext_resource type="Script" path="res://scripts/machine/states/state_attack.gd" id="25_gmev1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n8lb"]
 
@@ -37,7 +41,7 @@ shape = SubResource("CapsuleShape2D_1n8lb")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = ExtResource("1_pn4g7")
 sprite_frames = ExtResource("2_bdh0i")
-animation = &"Idle"
+animation = &"Running"
 offset = Vector2(-2, -6)
 flip_h = true
 script = ExtResource("3_0o1x5")
@@ -54,9 +58,7 @@ script = ExtResource("5_tid1f")
 
 [node name="Vitality" type="Node" parent="Attributes"]
 script = ExtResource("6_dl1ls")
-maximum_value = 5.0
-value = 5.0
-regen_rate = 0.5
+regen_rate = 0.1
 regen_when_depleted = false
 
 [node name="Effect Damage" type="Node" parent="Attributes/Vitality" node_paths=PackedStringArray("canvas", "player")]
@@ -88,7 +90,7 @@ type = 1
 [node name="Run" type="Node" parent="Kinematics/Ground"]
 script = ExtResource("10_gqa2w")
 speed = 160.0
-friction = 10.0
+friction = 8.0
 type = 7
 
 [node name="Walk" type="Node" parent="Kinematics/Ground"]
@@ -97,15 +99,16 @@ speed = 20.0
 friction = 10.0
 type = 6
 
-[node name="Machine State" type="Node" parent="." node_paths=PackedStringArray("sprite", "kinematics", "obstacle_detector", "ledge_detector")]
+[node name="Machine State" type="Node" parent="." node_paths=PackedStringArray("sprite", "kinematics", "obstacle_detector", "ledge_detector", "ai")]
 script = ExtResource("11_m20jc")
 sprite = NodePath("../Sprite")
 kinematics = NodePath("../Kinematics")
 obstacle_detector = NodePath("../Obstacles Detector")
 ledge_detector = NodePath("../Ledge Detector")
+ai = NodePath("../AI")
 
 [node name="Idle" type="Node" parent="Machine State"]
-script = ExtResource("12_u4cmj")
+script = ExtResource("14_nokp0")
 
 [node name="Stopwatch" type="Node" parent="Machine State/Idle"]
 script = ExtResource("13_tc2dv")
@@ -128,16 +131,6 @@ duration = 2.0
 [node name="Running" type="Node" parent="Machine State"]
 script = ExtResource("16_8dhwh")
 
-[node name="Hitted" type="Node" parent="Machine State" node_paths=PackedStringArray("attribute")]
-script = ExtResource("19_2ukwx")
-attribute = NodePath("../../Attributes/Vitality")
-
-[node name="Stopwatch" type="Node" parent="Machine State/Hitted"]
-script = ExtResource("13_tc2dv")
-next_state = "Idle"
-fixed_duration = true
-duration = 0.5
-
 [node name="Death" type="Node" parent="Machine State" node_paths=PackedStringArray("attribute")]
 script = ExtResource("20_j0f1s")
 attribute = NodePath("../../Attributes/Vitality")
@@ -151,17 +144,80 @@ next_state = "Idle"
 fixed_duration = true
 duration = 0.5
 
-[node name="AI" type="Node" parent="." node_paths=PackedStringArray("kinematics", "obstacle_detector", "ledge_detector")]
+[node name="AI Hitted" type="Node" parent="Machine State" node_paths=PackedStringArray("attribute")]
+script = ExtResource("19_ojt15")
+attribute = NodePath("../../Attributes/Vitality")
+
+[node name="Stopwatch" type="Node" parent="Machine State/AI Hitted"]
+script = ExtResource("13_tc2dv")
+next_state = "Idle"
+fixed_duration = true
+duration = 0.5
+
+[node name="AI Searching" type="Node" parent="Machine State"]
+script = ExtResource("22_ckp72")
+
+[node name="Stopwatch" type="Node" parent="Machine State/AI Searching"]
+script = ExtResource("13_tc2dv")
+next_state = "Idle"
+duration = 5.0
+
+[node name="AI Running" type="Node" parent="Machine State"]
+script = ExtResource("23_actu1")
+
+[node name="Stopwatch" type="Node" parent="Machine State/AI Running"]
+script = ExtResource("13_tc2dv")
+next_state = "AI Resting"
+duration = 3.0
+
+[node name="AI Resting" type="Node" parent="Machine State"]
+script = ExtResource("24_g5xso")
+
+[node name="Stopwatch" type="Node" parent="Machine State/AI Resting"]
+script = ExtResource("13_tc2dv")
+next_state = "AI Searching"
+duration = 3.0
+
+[node name="AI Attacking 1" type="Node" parent="Machine State" node_paths=PackedStringArray("area")]
+script = ExtResource("25_gmev1")
+area = NodePath("../../Attack 1")
+attribute_damage = 2.0
+
+[node name="AI" type="Node" parent="." node_paths=PackedStringArray("kinematics", "obstacle_detector", "ledge_detector", "player_detection_zone", "player_detector")]
 script = ExtResource("22_tswwm")
 kinematics = NodePath("../Kinematics")
 obstacle_detector = NodePath("../Obstacles Detector")
 ledge_detector = NodePath("../Ledge Detector")
+player_detection_zone = NodePath("../Player Detection")
+player_detector = NodePath("../Player Detector")
+player_detector_range = 175.0
 
 [node name="Obstacles Detector" type="RayCast2D" parent="."]
 rotation = -1.5708
 target_position = Vector2(-8.74228e-07, 20)
-collision_mask = 47
+collision_mask = 45
 
 [node name="Ledge Detector" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
 target_position = Vector2(0, 30)
+
+[node name="Player Detection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Collider" type="CollisionPolygon2D" parent="Player Detection"]
+position = Vector2(-14, 0)
+polygon = PackedVector2Array(-50, -28, -50, 15, 20, 10, 207, 28, 207, -87, 20, -17)
+
+[node name="Player Detector" type="RayCast2D" parent="."]
+collision_mask = 15
+
+[node name="Attack 1" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+monitorable = false
+
+[node name="Collider" type="CollisionPolygon2D" parent="Attack 1"]
+polygon = PackedVector2Array(7, -8, 25, -13, 25, 12, 7, 7)
